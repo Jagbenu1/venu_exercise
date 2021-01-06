@@ -5,8 +5,14 @@ import './Story.scss';
 export default function Story({ storyId }){
     const [story, setStory] = useState({});
 
+    const getAndSetStoryId = async () => {
+        const res = await getStory(storyId);
+        setStory(res);
+    };
+
     useEffect(()=>{
-        getStory(storyId).then(data => data && data.url && setStory(data));
+        //getStory(storyId).then(data => data && data.url && setStory(data));
+        getAndSetStoryId();
     }, []);
 
     return story && story.url ? (
