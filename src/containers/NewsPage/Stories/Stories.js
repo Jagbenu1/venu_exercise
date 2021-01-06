@@ -12,9 +12,14 @@ export default function Stories () {
     //const [activePage, setActivePage] = useState(1);
     //const newsPerPage = 3;
 
+    const getAndSetStoryIds = async () => {
+         // getStoryIds().then(data => setStoryIds(data));
+         const res = await getStoryIds();
+         setStoryIds(res);
+         console.log('!!!!!!', res);
+    }
     useEffect(()=>{
-        getStoryIds().then(data => setStoryIds(data));
-        console.log(storyIds);
+        getAndSetStoryIds();
     }, []) 
 
     //logic for displaying the current news
