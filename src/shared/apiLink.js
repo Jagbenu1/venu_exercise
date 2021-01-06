@@ -5,13 +5,13 @@ export const topStoriesUrl = `${baseurl}topstories.json`;
 export const storyUrl = `${baseurl}item/`;
 
 export const getStory = async (storyId) =>{
-    const res = await axios.get(`${storyUrl + storyId}.json?print=pretty`)
-        .then(({data}) => data)
-        return res;
+    const {data} = await axios.get(`${storyUrl + storyId}.json?print=pretty`)
+        //.then(({data}) => data)
+        return data;
 }
 
 export const getStoryIds = async () => {
-    const res = await axios.get(`${topStoriesUrl}?print=pretty&orderBy="$key"&limitToFirst=25`)
-        .then(({ data }) => data);
-        return res;
+    const {data} = await axios.get(`${topStoriesUrl}?print=pretty&orderBy="$key"&limitToFirst=25`)
+        //.then(({ data }) => data);
+        return data;
 }
