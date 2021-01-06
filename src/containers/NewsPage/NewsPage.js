@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Stories from './Stories/Stories';
 import './NewsPage.scss';
 
 
-export default function NewsPage() {
-    let stories = null;
-    stories = (
-        <Stories />
-    )
-    
-    
+export default function NewsPage() { 
     return(
         <div className="Stories">
-            {stories}
+            <Stories />
         </div>
     )
 };

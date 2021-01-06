@@ -11,7 +11,7 @@ export const getStory = async (storyId) =>{
 }
 
 export const getStoryIds = async () => {
-    const res = await axios.get(`${topStoriesUrl}?print=pretty&orderBy="$key"&limitToFirst=24`)
+    const res = await axios.get(`${topStoriesUrl}?print=pretty&orderBy="$key"&limitToFirst=25`)
         .then(({ data }) => data);
         return res;
 }
