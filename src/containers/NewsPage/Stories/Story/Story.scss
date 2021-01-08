@@ -4,4 +4,13 @@
     background-color: grey;
     border: solid red 1px;
     margin-bottom: 20px;
+
+    .heart-icon {
+        color: grey;
+        &.active{
+            color: red;
+        }
+    }
+
 }
+
