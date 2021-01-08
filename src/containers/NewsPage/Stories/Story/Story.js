@@ -16,13 +16,23 @@ export default function Story({ storyId, setStoryValue }){
 
     const toggleLike = (togId) => {
         const active = document.querySelectorAll('.Story .heart-icon');
-        if(active && like){
-            active.classList.add('active');
-            console.log(active.classList);
-            setStoryValue(togId);
-        }else{
-            active.classList.remove('active');
-        }
+        // console.log('ACTIVE',active);
+        for (let i = 0; i < active.length; i++) {
+            if (active[i].classList.contains('active')) {
+                active[i].classList.remove('active');
+            }
+          }
+
+          active[storyId - 1].classList.add('active');
+
+          setStoryValue(togId);
+        // if(active && like){
+        //     active.classList.add('active');
+        //     console.log(active.classList);
+        //     setStoryValue(togId);
+        // }else{
+        //     active.classList.remove('active');
+        // }
         //console.log(active);
         
     }
