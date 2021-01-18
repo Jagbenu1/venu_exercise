@@ -4,9 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import './Story.scss';
 
-export default function Story({ storyId, setStoryValue }){
+export default function Story({ storyId, setStoryValue, isActive, toggleIsActive }){
     const [story, setStory] = useState({});
-    const [isActive, setIsActive] = useState(true);
 
     const getAndSetStoryId = async () => {
         const res = await getStory(storyId);
@@ -15,30 +14,20 @@ export default function Story({ storyId, setStoryValue }){
     };
 
     const toggleLike = (togId) => {
+        toggleIsActive();
         const activeQuery = document.querySelectorAll('.Story .heart-icon');
         // console.log('ACTIVE',active);
+        
+        // remove the heart icon from all the previously selected items
         for (let i = 0; i < activeQuery.length; i++) {
             if (activeQuery[i].classList.contains('active')) {
                 activeQuery[i].classList.remove('active');
             }
-          }
-
-          if(isActive){
-            activeQuery[storyId - 1].classList.add('active');
-          }else{
-            activeQuery[storyId - 1].classList.remove('active'); 
-          }
+        }
+        
+        activeQuery[storyId - 1].classList.add('active');
          
-
-          setStoryValue(togId);
-        // if(active && like){
-        //     active.classList.add('active');
-        //     console.log(active.classList);
-        //     setStoryValue(togId);
-        // }else{
-        //     active.classList.remove('active');
-        // }
-        //console.log(active);
+        setStoryValue(togId);
         
     }
 
@@ -46,6 +35,10 @@ export default function Story({ storyId, setStoryValue }){
         //getStory(storyId).then(data => data && data.url && setStory(data));
         getAndSetStoryId();
     }, []);
+
+    useEffect(()=>{
+        console.log('!!isActive!!', isActive);
+    }, [isActive]);
 
     //const changeColour = like ? "red" : "grey";
     //console.log(story);
@@ -59,7 +52,6 @@ export default function Story({ storyId, setStoryValue }){
             <p>Posted: {new Date(story.time*1000).toString()}</p>
             <button className="likeBtn"
                 onClick={() => {
-                    setIsActive(prevIsActive => !prevIsActive);
                     toggleLike(story.id);
                     //console.log(isActive);
                 }}    

@@ -9,6 +9,7 @@ export default function Stories () {
     const [favoriteStory, setFavoriteStory] = useState({})
     const [favorite, setFavorite] = useState(false);
     const [likeValue, setLikeValue] = useState(null);
+    const [isActive, setIsActive] = useState(false);
 
     const getAndSetStoryIds = async () => {
          const res = await getStoryIds();
@@ -24,14 +25,18 @@ export default function Stories () {
         setLikeValue(storyId);
     }
 
+    const toggleIsActive = () => {
+        setIsActive(prevIsActive => !prevIsActive);
+    }
+
     useEffect(()=>{
         getAndSetStoryIds();
         getAndSetFavorite();
         //setFavorite(prevFavorite => !prevFavorite)
-    }, [likeValue]) 
+    }, [likeValue]);
 
     const renderNews = storyIds.map((index, storyId) => {
-        return <Story key={ index } storyId={ storyId } setStoryValue = { setStoryValue }/> 
+        return <Story key={index} storyId={storyId} setStoryValue = {setStoryValue} toggleIsActive={toggleIsActive} isActive={isActive}/> 
     });
     
     return (
