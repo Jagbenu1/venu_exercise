@@ -4,6 +4,8 @@
     background-color: grey;
     border: solid red 1px;
     margin-bottom: 20px;
+    text-align: center;
+    display: block;
 
     .heart-icon {
         color: grey;
@@ -11,6 +13,5 @@
             color: red;
         }
     }
-
 }
 

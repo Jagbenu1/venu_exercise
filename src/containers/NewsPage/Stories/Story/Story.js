@@ -6,7 +6,7 @@ import './Story.scss';
 
 export default function Story({ storyId, setStoryValue }){
     const [story, setStory] = useState({});
-    const [like, setLike] = useState(true);
+    const [isActive, setIsActive] = useState(true);
 
     const getAndSetStoryId = async () => {
         const res = await getStory(storyId);
@@ -15,15 +15,20 @@ export default function Story({ storyId, setStoryValue }){
     };
 
     const toggleLike = (togId) => {
-        const active = document.querySelectorAll('.Story .heart-icon');
+        const activeQuery = document.querySelectorAll('.Story .heart-icon');
         // console.log('ACTIVE',active);
-        for (let i = 0; i < active.length; i++) {
-            if (active[i].classList.contains('active')) {
-                active[i].classList.remove('active');
+        for (let i = 0; i < activeQuery.length; i++) {
+            if (activeQuery[i].classList.contains('active')) {
+                activeQuery[i].classList.remove('active');
             }
           }
 
-          active[storyId - 1].classList.add('active');
+          if(isActive){
+            activeQuery[storyId - 1].classList.add('active');
+          }else{
+            activeQuery[storyId - 1].classList.remove('active'); 
+          }
+         
 
           setStoryValue(togId);
         // if(active && like){
@@ -48,14 +53,15 @@ export default function Story({ storyId, setStoryValue }){
 
     return story && story.url ? (
         <div className="Story">
-            <a href={story.url}><p>{story.title}</p></a>
+            <a href={story.url} target='_blank' rel="noreferrer"><p>{story.title}</p></a>
             <p>{story.id}</p>
             <p>By: {story.by}</p>
-            <p>Posted: {story.time}</p>
+            <p>Posted: {new Date(story.time*1000).toString()}</p>
             <button className="likeBtn"
                 onClick={() => {
+                    setIsActive(prevIsActive => !prevIsActive);
                     toggleLike(story.id);
-                    setLike(!like);
+                    //console.log(isActive);
                 }}    
             >
                 <FontAwesomeIcon icon={faHeart} className="heart-icon" />

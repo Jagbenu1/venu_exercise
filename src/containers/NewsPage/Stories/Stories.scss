@@ -1,0 +1,14 @@
+.Stories{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+}
+
+.favorite{
+    display: block;
+    margin: 0 auto;
+    border: solid red 2px;
+    width: 300px;  
+    text-align: center;
+}
