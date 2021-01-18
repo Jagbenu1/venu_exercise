@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import './Story.scss';
 
-export default function Story({ storyId, setStoryValue, isActive, toggleIsActive }){
+export default function Story({ storyId, handleLikeOnClick }){
     const [story, setStory] = useState({});
 
     const getAndSetStoryId = async () => {
@@ -13,32 +13,12 @@ export default function Story({ storyId, setStoryValue, isActive, toggleIsActive
         //console.log(story);
     };
 
-    const toggleLike = (togId) => {
-        toggleIsActive();
-        const activeQuery = document.querySelectorAll('.Story .heart-icon');
-        // console.log('ACTIVE',active);
-        
-        // remove the heart icon from all the previously selected items
-        for (let i = 0; i < activeQuery.length; i++) {
-            if (activeQuery[i].classList.contains('active')) {
-                activeQuery[i].classList.remove('active');
-            }
-        }
-        
-        activeQuery[storyId - 1].classList.add('active');
-         
-        setStoryValue(togId);
-        
-    }
 
     useEffect(()=>{
         //getStory(storyId).then(data => data && data.url && setStory(data));
         getAndSetStoryId();
     }, []);
 
-    useEffect(()=>{
-        console.log('!!isActive!!', isActive);
-    }, [isActive]);
 
     //const changeColour = like ? "red" : "grey";
     //console.log(story);
@@ -52,8 +32,7 @@ export default function Story({ storyId, setStoryValue, isActive, toggleIsActive
             <p>Posted: {new Date(story.time*1000).toString()}</p>
             <button className="likeBtn"
                 onClick={() => {
-                    toggleLike(story.id);
-                    //console.log(isActive);
+                    handleLikeOnClick(story.id);
                 }}    
             >
                 <FontAwesomeIcon icon={faHeart} className="heart-icon" />
