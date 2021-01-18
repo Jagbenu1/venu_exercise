@@ -23,15 +23,14 @@ export default function Stories() {
     }
 
     const setStoryValue = (storyId = null) => {
-        // set and keep track of the previously selected Item, and update the current/likedItem
+        // set and keep track of the previously selected Item, and update the current/likedItem. Passing in null will unset likedItem
         setPrevLikedItem(likedItem);
         setLikedItem(storyId);
     }
 
     const handleLikeOnClick = (storyId) => {
-
-        setStoryValue(storyId);
         // if current state is equal to the previous state. param should be null, else it should return the story id
+        setStoryValue(storyId);
     }
 
     useEffect(() => {
