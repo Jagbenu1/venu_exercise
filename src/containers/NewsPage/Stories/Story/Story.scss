@@ -1,12 +1,18 @@
 .Story{
-    margin: 0 auto;
+    margin: 30px;
+    padding: 10px;
+    flex: 1 1 auto;
     width: 300px;
-    background-color: grey;
-    border: solid red 1px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     margin-bottom: 20px;
     text-align: center;
     display: block;
+    border-radius: 10px;
+    background: #ffff;
 
+    a {
+        color: #2196F3;
+    }
     .heart-icon {
         color: grey;
         &.active{

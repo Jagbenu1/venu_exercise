@@ -34,23 +34,25 @@ export default function Stories() {
     }
 
     useEffect(() => {
-        const activeQuery = document.querySelectorAll('.Story .heart-icon');
-
-        if (likedItem && activeQuery) {
-            // This removes the previous heart icon if it exists
-            if (prevLikedItem && activeQuery[prevLikedItem - 1].classList.contains('active')) {
-                activeQuery[prevLikedItem - 1].classList.remove('active');
+        const heartIconQuerySelect = document.querySelectorAll('.Story .heart-icon');
+        
+        const removePrevLikedItem = () => {
+            if (prevLikedItem && heartIconQuerySelect[prevLikedItem - 1].classList.contains('active')) {
+                heartIconQuerySelect[prevLikedItem - 1].classList.remove('active');
             }
-            activeQuery[likedItem - 1].classList.add('active');
+        }
+
+        if (likedItem && heartIconQuerySelect) {
+            // This removes the previous heart icon if it exists
+            removePrevLikedItem();
+            heartIconQuerySelect[likedItem - 1].classList.add('active');
         }
 
         console.log('likedItem', likedItem, 'prevLikedItem', prevLikedItem);
 
         // if current likedItem is equal to the previous likedItem, Remove Heart icon and unset the current listItem 
         if (likedItem === prevLikedItem) {
-            if (prevLikedItem && activeQuery[prevLikedItem - 1].classList.contains('active')) {
-                activeQuery[prevLikedItem - 1].classList.remove('active');
-            }
+            removePrevLikedItem();
             setStoryValue();
         }
     }, [likedItem, prevLikedItem]);
@@ -58,8 +60,6 @@ export default function Stories() {
     useEffect(() => {
         getAndSetStoryIds();
         getAndSetFavorite();
-        //setFavorite(prevFavorite => !prevFavorite)
-        // console.log('isLiked', likedItem);
     }, [likedItem]);
 
     const renderNews = storyIds.map((index, storyId) => {
@@ -74,7 +74,8 @@ export default function Stories() {
     return (
         <div>
             {(favoriteStory) ? (
-                <div className="favorite">
+                <div className="favorite Story">
+                    <b>Favorite Story</b>
                     <a href={favoriteStory.url} target='_blank' rel="noreferrer"><p>{favoriteStory.title}</p></a>
                     <p>{favoriteStory.id}</p>
                     <p>By: {favoriteStory.by}</p>

@@ -2,12 +2,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    background-color: #B9DEED;
     
 }
 
 .favorite{
     display: block;
-    margin: 0 auto;
+    margin: 10px auto;
     border: solid red 2px;
     width: 300px;  
     text-align: center;
