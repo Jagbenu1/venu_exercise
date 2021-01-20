@@ -6,7 +6,7 @@ import NewsPage from './containers/NewsPage/NewsPage';
 
 export default function App() {
   return(
-      <div>
+      <div className="App">
         <Switch>
           <Route path='/news' component={NewsPage}></Route>
           <Route path='/' exact component={LoginPage}></Route>

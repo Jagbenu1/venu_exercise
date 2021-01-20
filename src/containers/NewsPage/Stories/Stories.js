@@ -6,9 +6,7 @@ import './Stories.scss';
 
 export default function Stories() {
     const [storyIds, setStoryIds] = useState([]);
-    const [favoriteStory, setFavoriteStory] = useState({})
-    const [favorite, setFavorite] = useState(false);
-
+    const [favoriteStory, setFavoriteStory] = useState({});
     const [prevLikedItem, setPrevLikedItem] = useState(null);
     const [likedItem, setLikedItem] = useState(null);
 
