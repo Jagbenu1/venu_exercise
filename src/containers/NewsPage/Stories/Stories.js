@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { getStoryIds } from '../../../shared/apiLink';
 import { getStory } from '../../../shared/apiLink';
 import Story from './Story/Story';
@@ -15,16 +15,11 @@ export default function Stories() {
         setStoryIds(res);
     }
 
-    const getAndSetFavorite = async () => {
-        const res = await getStory(likedItem);
-        setFavoriteStory(res);
-    }
-
-    const setStoryValue = (storyId = null) => {
+    const setStoryValue = useCallback((storyId = null) => {
         // set and keep track of the previously selected Item, and update the current/likedItem. Passing in null will unset likedItem
         setPrevLikedItem(likedItem);
         setLikedItem(storyId);
-    }
+    }, [likedItem]);
 
     const handleLikeOnClick = (storyId) => {
         // if current state is equal to the previous state. param should be null, else it should return the story id
@@ -46,18 +41,21 @@ export default function Stories() {
             heartIconQuerySelect[likedItem - 1].classList.add('active');
         }
 
-        console.log('likedItem', likedItem, 'prevLikedItem', prevLikedItem);
-
         // if current likedItem is equal to the previous likedItem, Remove Heart icon and unset the current listItem 
         if (likedItem === prevLikedItem) {
             removePrevLikedItem();
             setStoryValue();
         }
-    }, [likedItem, prevLikedItem]);
+    }, [likedItem, prevLikedItem, setStoryValue]);
 
     useEffect(() => {
         getAndSetStoryIds();
-        getAndSetFavorite();
+        
+        // get and set favorite
+        (async () => {
+            const res = await getStory(likedItem);
+            setFavoriteStory(res);
+          })();
     }, [likedItem]);
 
     const renderNews = storyIds.map((index, storyId) => {
